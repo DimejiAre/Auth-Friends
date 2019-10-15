@@ -12,24 +12,24 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Route 
-        path='/'
-        render={props => {
-          return <NavBar {...props}/>
-        }}/>
+        <Route
+          path='/'
+          render={props => {
+            return <NavBar {...props} />
+          }} />
 
-        <Route 
-        exact path='/'
-        render={props => {
-          return <LoginForm {...props}/>
-        }}/>
+        <Route
+          exact path='/'
+          render={props => {
+            return <LoginForm {...props} />
+          }} />
 
-        <Route 
-        path='/friends'
-        render={props => {
-          return <Friends {...props} friends={friends} setFriends={setFriends}/>
-        }}/>
-        
+        <Route
+          path='/friends'
+          render={props => {
+            return <Friends {...props} friends={friends} setFriends={setFriends} />
+          }} />
+
       </div>
     </Router>
   );

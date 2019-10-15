@@ -1,0 +1,22 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background: plum;
+
+    div {
+        width: 30vw;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    a {
+        text-decoration: none;
+        color: initial;
+
+        &:hover {
+            color: white;
+        }
+    }
+}
