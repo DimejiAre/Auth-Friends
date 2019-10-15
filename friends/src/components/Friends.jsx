@@ -15,7 +15,7 @@ function Friends(props) {
             .catch(error => {
                 alert(error.message)
             })
-    }, [friends])
+    }, [])
 
     return (
         <div className='friends-page'>
@@ -24,7 +24,7 @@ function Friends(props) {
                 {
                     friends ?
                         friends.map(friend => (
-                            <Friend key={friend.id} friend={friend} />
+                            <Friend key={friend.id} friend={friend} setFriends={setFriends}/>
                         ))
                         : null
                 }
