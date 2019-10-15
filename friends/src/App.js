@@ -7,9 +7,7 @@ import './App.css';
 
 function App() {
 
-  const login = (formValue, actions) => {
-    debugger
-  }
+  
 
   return (
     <Router>
@@ -23,7 +21,7 @@ function App() {
         <Route 
         exact path='/'
         render={props => {
-          return <LoginForm {...props} login={login}/>
+          return <LoginForm {...props}/>
         }}/>
 
         <Route 
