@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import withAuth from '../axios';
 import Friend from './Friend';
+import FriendForm from './FriendForm';
 
 function Friends(props){
     const {friends, setFriends} = props
@@ -13,17 +14,20 @@ function Friends(props){
         .catch(error => {
             alert(error.message)
         })
-    },[])
+    },[friends])
 
     return (
         <div>
-            {
-                friends?
-                friends.map(friend => (
-                    <Friend key={friend.id} friend={friend}/>
-                ))
-                : null
-            }
+            <FriendForm setFriends={setFriends}/>
+            <div>
+                {
+                    friends?
+                    friends.map(friend => (
+                        <Friend key={friend.id} friend={friend}/>
+                    ))
+                    : null
+                }
+            </div>
         </div>
     )
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-const initialFriendForm = {
+const initialLoginForm = {
     username: '',
     password: '',
   };
@@ -27,7 +27,7 @@ function LoginForm(props){
     
     return (
         <Formik 
-        initialValues={initialFriendForm}
+        initialValues={initialLoginForm}
         onSubmit={login}
         render={props => {
             return (
