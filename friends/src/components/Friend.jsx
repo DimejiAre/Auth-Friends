@@ -4,7 +4,9 @@ function Friend(props){
     const {friend} = props
     return (
         <div>
-            <p>{friend.name}</p>
+            <h3><strong>Name:</strong> {friend.name}</h3>
+            <p><strong>Age: </strong>{friend.age}</p>
+            <p><strong>Email:</strong> {friend.email}</p>
         </div>
     )
 }

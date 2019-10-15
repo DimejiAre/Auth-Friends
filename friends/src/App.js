@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LoginForm from './components/LoginForm';
 import NavBar from './components/NavBar';
 import Friends from './components/Friends';
@@ -7,7 +7,7 @@ import './App.css';
 
 function App() {
 
-  
+  const [friends, setFriends] = useState([]);
 
   return (
     <Router>
@@ -27,7 +27,7 @@ function App() {
         <Route 
         path='/friends'
         render={props => {
-          return <Friends {...props}/>
+          return <Friends {...props} friends={friends} setFriends={setFriends}/>
         }}/>
         
       </div>

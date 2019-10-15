@@ -1,8 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import withAuth from '../axios';
 import Friend from './Friend';
 
 function Friends(props){
-    const {friends} = props
+    const {friends, setFriends} = props
+
+    useEffect(()=>{
+        withAuth().get('http://localhost:5000/api/friends')
+        .then(res => {
+            setFriends(res.data)
+        })
+        .catch(error => {
+            alert(error.message)
+        })
+    },[])
+
     return (
         <div>
             {
