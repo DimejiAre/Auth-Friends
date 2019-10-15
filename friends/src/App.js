@@ -1,25 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
+import LoginForm from './components/LoginForm';
+import NavBar from './components/NavBar';
+import Friends from './components/Friends';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 
 function App() {
+
+  const login = (formValue, actions) => {
+    debugger
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Route 
+        path='/'
+        render={props => {
+          return <NavBar {...props}/>
+        }}/>
+
+        <Route 
+        exact path='/'
+        render={props => {
+          return <LoginForm {...props} login={login}/>
+        }}/>
+
+        <Route 
+        path='/friends'
+        render={props => {
+          return <Friends {...props}/>
+        }}/>
+        
+      </div>
+    </Router>
   );
 }
 
