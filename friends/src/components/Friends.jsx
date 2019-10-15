@@ -1,20 +1,15 @@
 import React, { useEffect } from 'react';
-import withAuth from '../axios';
+import { connect } from 'react-redux';
+import * as actionCreators from '../state/actionCreators';
 import Friend from './Friend';
 import FriendForm from './FriendForm';
 import './scss/Friends.scss';
 
 function Friends(props) {
-    const { friends, setFriends } = props
+    const { friends, getFriends, setFriends } = props
 
     useEffect(() => {
-        withAuth().get('http://localhost:5000/api/friends')
-            .then(res => {
-                setFriends(res.data)
-            })
-            .catch(error => {
-                alert(error.message)
-            })
+        getFriends()
     }, [])
 
     return (
@@ -24,7 +19,7 @@ function Friends(props) {
                 {
                     friends ?
                         friends.map(friend => (
-                            <Friend key={friend.id} friend={friend} setFriends={setFriends}/>
+                            <Friend key={friend.id} friend={friend} setFriends={setFriends} />
                         ))
                         : null
                 }
@@ -33,4 +28,7 @@ function Friends(props) {
     )
 }
 
-export default Friends;
+export default connect(
+    state => state,
+    actionCreators
+)(Friends);

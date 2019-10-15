@@ -1,55 +1,34 @@
 import React from 'react';
-import axios from 'axios';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { connect } from 'react-redux';
+import * as actionCreators from '../state/actionCreators';
 import './scss/LoginForm.scss';
-
-const initialLoginForm = {
-  username: '',
-  password: '',
-};
 
 function LoginForm(props) {
 
-  const login = (formValue, actions) => {
-    const params = {
-      username: formValue.username,
-      password: formValue.password
-    }
-    axios.post('http://localhost:5000/api/login', params)
-      .then(res => {
-        localStorage.setItem('token', res.data.payload)
-        props.history.push('/friends')
-      })
-      .catch(error => {
-        alert(error.message);
-      })
-    actions.resetForm();
+  const { loginForm, login, loginInputChange } = props;
+
+  const submit = e => {
+    e.preventDefault();
+    login(loginForm, props);
   }
 
   return (
-    <Formik
-      initialValues={initialLoginForm}
-      onSubmit={login}
-      render={props => {
-        return (
-          <Form className='login-form'>
-            <label>
-              Username:
-                        </label>
-            <Field name='username' type='text' placeholder='username' />
-            <ErrorMessage name='name' component='div' />
+    <form className='login-form'>
+      <label>
+        Username:
+      </label>
+      <input value={loginForm.username} onChange={loginInputChange} name='username' type='text' placeholder='username' />
+      <label>
+        Password:
+      </label>
+      <input value={loginForm.password} onChange={loginInputChange} name='password' type='password' placeholder='Password' />
 
-            <label>
-              Password:
-                        </label>
-            <Field name='password' type='password' placeholder='Password' />
-            <ErrorMessage name='password' component='div' />
-
-            <button type='submit'>Login</button>
-          </Form>
-        )
-      }} />
+      <button type='submit' onClick={submit}>Login</button>
+    </form>
   )
 }
 
-export default LoginForm;
+export default connect(
+  state => state,
+  actionCreators
+)(LoginForm);

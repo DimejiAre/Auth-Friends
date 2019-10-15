@@ -1,65 +1,43 @@
 import React from 'react';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import withAuth from '../axios';
+import { connect } from 'react-redux';
+import * as actionCreators from '../state/actionCreators';
 import './scss/FriendForm.scss';
-
-const initialFriendForm = {
-    "name": '',
-    "age": '',
-    "email": '',
-}
 
 function FriendForm(props) {
 
-    const { setFriends } = props;
+    const { editFriend, friendsForm, createFriend, friendsInputChange } = props;
 
-    const submit = (formValues, actions) => {
-        const params = {
-            name: formValues.name,
-            age: Number(formValues.age),
-            email: formValues.email
+    const submit = e => {
+        e.preventDefault();
+        if (friendsForm.id) {
+            editFriend(friendsForm)
+        } else {
+            createFriend(friendsForm)
         }
-        withAuth().post('http://localhost:5000/api/friends', params)
-            .then(res => {
-                setFriends(res.data)
-            })
-            .catch(error => {
-                alert(error.message)
-            })
 
-        actions.resetForm();
     }
 
-
     return (
-        <Formik
-            initialValues={initialFriendForm}
-            onSubmit={submit}
-            render={props => {
-                return (
-                    <Form className='friend-form'>
-                        <h4>Add Friend</h4>
-                        <label>
-                            Name:
-                        <Field name='name' type='text' placeholder='name' />
-                            <ErrorMessage name='name' component='div' />
-                        </label>
-                        <label>
-                            Age:
-                        <Field name='age' type='text' placeholder='age' />
-                            <ErrorMessage name='age' component='div' />
-                        </label>
-                        <label>
-                            Email:
-                        <Field name='email' type='text' placeholder='email' />
-                            <ErrorMessage name='email' component='div' />
-                        </label>
-                        <button type='submit'>Enter</button>
-                    </Form>
-                )
-            }} />
+        <form className='friend-form'>
+            <h4>Add Friend</h4>
+            <label>
+                Name:
+                <input value={friendsForm.name} onChange={friendsInputChange} name='name' type='text' placeholder='name' />
+            </label>
+            <label>
+                Age:
+                 <input value={friendsForm.age} onChange={friendsInputChange} name='age' type='text' placeholder='age' />
+            </label>
+            <label>
+                Email:
+                 <input value={friendsForm.email} onChange={friendsInputChange} name='email' type='text' placeholder='email' />
+            </label>
+            <button type='submit' onClick={submit}>Enter</button>
+        </form>
     )
 }
 
-export default FriendForm;
-
+export default connect(
+    state => state,
+    actionCreators
+)(FriendForm);

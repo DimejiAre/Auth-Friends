@@ -1,26 +1,22 @@
 import React from 'react';
-import withAuth from '../axios';
+import { connect } from 'react-redux';
+import * as actionCreators from '../state/actionCreators';
 
 function Friend(props) {
-    const { friend, setFriends } = props
-
-    const removeFriend = e => {
-        debugger
-        withAuth().delete('http://localhost:5000/api/friends/' + friend.id)
-        .then(res => {
-            setFriends(res.data)
-        })
-
-    }
+    const { friend, removeFriend, editFriendForm } = props
 
     return (
         <div className='friend'>
             <h3><strong>Name:</strong> {friend.name}</h3>
             <p><strong>Age: </strong>{friend.age}</p>
             <p><strong>Email:</strong> {friend.email}</p>
-            <button onClick={removeFriend}>Delete</button>
+            <button onClick={e => editFriendForm(friend)}>Edit</button>
+            <button onClick={e => removeFriend(friend.id)}>Delete</button>
         </div>
     )
 }
 
-export default Friend;
+export default connect(
+    state => state,
+    actionCreators
+)(Friend);
