@@ -1,0 +1,21 @@
+.friends {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
+
+    .friend {
+        border: 1px solid black;
+        border-radius: 30px;
+        width: 20vw;
+        min-height: 170px;
+        margin: 20px;
+        text-align: left;
+        padding: 0 20px;
+
+        button {
+            background-color: plum;
+            border-radius: 7px;
+        }
+    }
+}
